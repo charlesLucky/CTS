@@ -1,0 +1,105 @@
+/* 
+    Created on : Feb 11, 2016, 3:52:57 PM
+    Author     : Mike Zhong
+*/
+
+#main-nav-menu {
+    position: fixed;
+    top: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+}
+
+#patients-nav-menu {
+    position: fixed;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+}
+
+#products-nav-menu {
+    position: fixed;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+}
+
+#users-nav-menu {
+    position: fixed;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+}
+
+#processes-nav-menu {
+    position: fixed;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+}
+
+#ln2_locations-nav-menu {
+    position: fixed;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+}
+
+li {
+    float: left;
+    background-color: white;
+}
+
+li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: white;
+}
+
+li a:hover {
+    background-color: gray; 
+}
+
+.fixed-header-preliminary-info {
+    width:100%;
+    position:fixed;
+    top:0px;
+    background-color: white;
+}
+
+.process-start {
+    margin-top: 190px;
+}
+
+.ln2-assign {
+    margin-top: 50px;
+}
+
+.ln2_locations-nav {
+    width:100%;
+    position:fixed;
+    top:0px;
+    background-color: white;
+}

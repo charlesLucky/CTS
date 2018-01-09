@@ -1,0 +1,82 @@
+FOr processes, create header with all prelim info, make static.
+
+Make processing form sequential, make generated report grouped by info type
+
+Make DIN scannable, make receipt and expiration dt scannable, tool tip for manual entry.
+
+Implement child specimens, linked to product, has DIN, component_code, counts fields.
+
+EDIT FORM: have it echo the value previously entered
+
+STANDARDS: NA for all non applicable values
+
+Set 6 hour expiration time on session cookie
+Logout button ends session, only use when a process is completely finished.
+Anyway to restore $_SESSION after it has ended???
+
+If Browser is closed, how to restore session? 
+Implement save button, how does it work?
+---caching---
+
+******Freeze*******
+Initialize Process
+Valid product, recipient, and other requisite info
+
+******PRE******
+Load preliminary product details into form,
+Store all accession data, and equipment data at the the beginning
+Use timestamp button for all timestamped points, convert to m-d-y H:i for all output
+
+Use <select> to select the tech performing, if not self, flag and require password from tech before proceeding
+How do I do this for long periods of time???
+
+Use calc function window to perform all calculations, linked to process by id#, stored in its own table
+
+Otherwise store all data as strings in sql table `processes`
+
+Implement LN2 locations
+
+Once product in LN2 tank, process is in post
+
+******POST******
+Report on process, flags can still be unsigned
+Child specimens have been created, they are linked to the process, which is linked to a product and recipient
+They are stored in their own table `child_specimen` and are linked, they can be created, destroyed and pooled (freeze / thaw)
+CANNOT DIRECTLY MANIPULATE CHILD SPECIMENS!!! They can only be interfaced by performing processes
+
+Once all sign offs are performed, process can officially be completed
+
+******COMPLETE******
+All signoffs complete, awaiting tech, supervisor, director, QA review
+Each reviewer will have access to a button for approval, if there are any concerns, a flag can be created
+
+******Thaw******
+Initiate process
+Select a product and its daughter specimens
+
+******PRE******
+Load preliminary product details into form,
+Store all accession data, and equipment data at the the beginning
+Use timestamp button for all timestamped points, convert to m-d-y H:i for all output
+
+Pool daughter specimens (if needed), get number from SQ
+
+Use <select> to select the tech performing, if not self, flag and require password from tech before proceeding
+How do I do this for long periods of time???
+
+Once product has been issued (in reality), the process proceeds to post
+
+******POST******
+Products LN2 locations are freed
+Daughter specimens are destroyed
+
+Once all sign offs are performed, process can officially be completed
+
+******COMPLETE******
+All signoffs complete, awaiting tech, supervisor, director, QA review
+Each reviewer will have access to a button for approval, if there are any concerns, a flag can be created
+
+
+
+
+Implement Activity Logging

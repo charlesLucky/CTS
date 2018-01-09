@@ -1,6 +1,6 @@
 <?php
 
-include '/libraries/db_functions.php';
+include '/libraries/controller.php';
 
 // flag for valid login credentials
 $valid_credentials = false;
@@ -11,33 +11,45 @@ if(isset($_POST['submit'])){
     // check POST data
     if(isset($_POST['login']) && is_array($_POST['login']) && count($_POST['login'] == 2)){
     
-        // sanitize user and pass
+        // sanitize username and password
         foreach($_POST['login'] as $key => $value){
             $login[$key] = filter_var($value, FILTER_SANITIZE_STRING);
         }   
     
         // connect to db to validate login credentials
+        // currently use default user and pass but will eventually use $login creds 
+        // to connect to db
         $pdo = connect();
         
-        // SELECT PHS ID and password to validate login credentials
-        $sql = 'SELECT * FROM `users` WHERE `phs_id` = :user';
-            
-        $statement = $pdo->prepare($sql);
-        $statement->execute(array('user' => $login['user']));
-            
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        if($result && is_array($result) and !empty($result)){
-            if($login['user'] == $result['phs_id'] && $login['pass'] == $result['password']){
-                echo '<br /><br /> SUCCESS!!!!';
-                $valid_credentials = true;
+        if($pdo){
+            // SELECT PHS ID and password to validate login credentials
+            $sql = 'SELECT * FROM `users` WHERE `phs_id` = :user';
+
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array('user' => $login['user']));
+
+            // $result holds the query for given user
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if($result && is_array($result) && count($result) > 0){
+                
+                // set flag for valid credentials to true
+                if($login['user'] == $result['phs_id'] && $login['pass'] == $result['password']){
+                    $valid_credentials = true;
+                }
+                else{
+                    echo '<br /><br /> username or password is incorrect';
+                }
             }
             else{
-                echo '<br /><br /> username or password is incorrect';
-            }
+                echo '<br /><br /> user name not found';
+            } 
         }
         else{
-            echo '<br /><br /> user name not found';
-        } 
+            echo '<br /><br />Failed to connect to DB';
+        }
+    }
+    else{
+        echo '<br /><br />POST data invalid';
     }
 }
 
@@ -64,21 +76,21 @@ if(isset($_POST['submit'])){
 <?php
 
 if($valid_credentials){
-    
+
     // begin a session
     session_start();
-    echo 'initializing session data for user: ' . $result['name'] .'<br />';
+    
+    echo 'initializing session data for user: ' . $result['name'] . '<br />';
     
     // initialize session variables for 'user' and 'valid'
     $_SESSION['user'] = $result;
     $_SESSION['valid'] = true;
-    $_SESSION['dbh'] = $pdo;
-    
-    var_dump($_SESSION);
-    
+    $_SESSION['logger'] = new Logger();
+
+    // generate link to proceed
     echo '<br /><a href="frontpage.php"> Proceed to CTS Suite </a>';
 }
 
-phpinfo(INFO_VARIABLES);
+//phpinfo(INFO_VARIABLES);
 
 
